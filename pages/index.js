@@ -1,67 +1,63 @@
-import Link from 'next/link';
-import { getPosts } from '../utils/mdx-utils';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Saskia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .top-bar {
+            margin-bottom: 20px;
+        }
+        button {
+            background: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: lightgray;
+        }
+        .display-area {
+            font-size: 80px;
+            margin-top: 20px;
+            transition: transform 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello Saskia</h1>
+    <p>How are you doing?</p>
+    <div class="top-bar">
+        <button id="examplesBtn">Alright</button>
+        <button id="helpBtn">Dizzy</button>
+    </div>
+    <div class="display-area" id="display"></div>
 
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import Layout, { GradientBackground } from '../components/Layout';
-import ArrowIcon from '../components/ArrowIcon';
-import { getGlobalData } from '../utils/global-data';
-import SEO from '../components/SEO';
+    <script>
+        document.getElementById('examplesBtn').addEventListener('click', function() {
+            document.getElementById('display').innerText = ':)))) Yay!';
+            document.getElementById('display').style.transform = 'scale(1.2)';
+        });
 
-export default function Index({ posts, globalData }) {
-  return (
-    <Layout>
-      <SEO title={globalData.name} description={globalData.blogTitle} />
-      <Header name={globalData.name} />
-      <main className="w-full">
-        <h1 className="mb-12 text-3xl text-center lg:text-5xl">
-          {globalData.blogTitle}
-        </h1>
-        <ul className="w-full">
-          {posts.map((post) => (
-            <li
-              key={post.filePath}
-              className="transition bg-white border border-b-0 border-gray-800 md:first:rounded-t-lg md:last:rounded-b-lg backdrop-blur-lg dark:bg-black dark:bg-opacity-30 bg-opacity-10 hover:bg-opacity-20 dark:hover:bg-opacity-50 dark:border-white border-opacity-10 dark:border-opacity-10 last:border-b hover:border-b hovered-sibling:border-t-0" data-sb-object-id={`posts/${post.filePath}`}
-            >
-              <Link
-                as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
-                href={`/posts/[slug]`}
-                className="block px-6 py-6 lg:py-10 lg:px-16 focus:outline-none focus:ring-4">
-
-                {post.data.date && (
-                  <p className="mb-3 font-bold uppercase opacity-60" data-sb-field-path="date">
-                    {post.data.date}
-                  </p>
-                )}
-                <h2 className="text-2xl md:text-3xl" data-sb-field-path="title">{post.data.title}</h2>
-                {post.data.description && (
-                  <p className="mt-3 text-lg opacity-60" data-sb-field-path="description">
-                    {post.data.description}
-                  </p>
-                )}
-                <ArrowIcon className="mt-4" />
-
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </main>
-      <Footer copyrightText={globalData.footerText} />
-      <GradientBackground
-        variant="large"
-        className="fixed top-20 opacity-40 dark:opacity-60"
-      />
-      <GradientBackground
-        variant="small"
-        className="absolute bottom-0 opacity-20 dark:opacity-10"
-      />
-    </Layout>
-  );
-}
-
-export function getStaticProps() {
-  const posts = getPosts();
-  const globalData = getGlobalData();
-
-  return { props: { posts, globalData } };
-}
+        document.getElementById('helpBtn').addEventListener('click', function() {
+            document.getElementById('display').innerText = '😞 Noooo.';
+            document.getElementById('display').style.transform = 'scale(0.8)';
+        });
+    </script>
+</body>
+</html>
